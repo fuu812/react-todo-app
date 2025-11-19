@@ -8,6 +8,7 @@ export const initTodos: Todo[] = [
     isDone: false,
     priority: 2,
     deadline: new Date(2024, 10, 2, 17, 30),
+    category: "勉強",
   },
   // {
   //   id: uuid(),

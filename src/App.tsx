@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import type { Todo } from "./types";
 import { initTodos } from "./initTodos";
 import WelcomeMessage from "./WelcomeMessage";
@@ -16,6 +16,7 @@ const App = () => {
   const [newTodoDeadline, setNewTodoDeadline] = useState<Date | null>(null);
   const [newTodoNameError, setNewTodoNameError] = useState("");
   const [initialized, setInitialized] = useState(false);
+  const [newTodoCategory, setNewTodoCategory] = useState<"勉強" | "その他">("勉強");
   const localStorageKey = "TodoApp"; // ◀◀ 追加
 
   // App コンポーネントの初回実行時のみLocalStorageからTodoデータを復元
@@ -109,6 +110,12 @@ const App = () => {
     const updatedTodos = todos.filter((todo) => todo.id !== id);
     setTodos(updatedTodos);
   }
+  const displayTodos = useMemo(() => {
+    return [...todos].sort((a,b) => {
+      if (a.isDone === b.isDone) return 0;
+      return a.isDone ? 1 : -1;
+    });
+  }, [todos]);
 
   return (
     <div className="mx-4 mt-10 max-w-2xl md:mx-auto">
@@ -119,7 +126,7 @@ const App = () => {
           uncompletedCount={uncompletedCount}
         />
       </div>
-      <TodoList todos={todos} updateIsDone={updateIsDone} remove={remove} />
+      <TodoList todos={displayTodos} updateIsDone={updateIsDone} remove={remove} />
 
       <button
         type="button"
@@ -196,6 +203,11 @@ const App = () => {
             className="rounded-md border border-gray-400 px-2 py-0.5"
           />
         </div>
+
+        <select value={newTodoCategory} onChange={(e) => setNewTodoCategory(e.target.value as any)}>
+          <option value="勉強">勉強</option>
+          <option value="その他">その他</option>
+        </select>
 
         <button
           type="button"

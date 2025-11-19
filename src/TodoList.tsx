@@ -21,6 +21,8 @@ const num2star = (n: number): string => "★".repeat(4 - n);
 const TodoList = (props: Props) => {
   const todos = props.todos;
 
+const categories: ("勉強" | "その他")[] = ["勉強", "その他"];
+
   if (todos.length === 0) {
     return (
       <div className="text-red-500">
@@ -85,6 +87,12 @@ const TodoList = (props: Props) => {
               </div>
             </div>
           )}
+              <div className="ml-2">
+                カテゴリ:
+              </div>
+              <div className="ml-2">
+                 {todo.category ? todo.category : "未設定"}
+              </div>
         </div>
       ))}
     </div>
