@@ -1,5 +1,6 @@
 # TodoApp
 
+リンク: https://fuu812.github.io/react-todo-app/
 React、TypeScript、Tailwind CSS を使用し、ローカルストレージでデータを永続化した「Todoアプリ」です。
 
 ## 開発履歴
