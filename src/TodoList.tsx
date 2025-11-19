@@ -48,12 +48,18 @@ const TodoList = (props: Props) => {
           )}
           <div className="flex flex-row items-baseline text-slate-700">
             <FontAwesomeIcon icon={faFile} flip="horizontal" className="mr-1" />
-            <div
+            <label
+              onClick={() => props.updateIsDone(todo.id, !todo.isDone)}
               className={twMerge(
                 "text-lg font-bold",
                 todo.isDone && "line-through decoration-2"
               )}
             >
+                {todo.name}
+            </label>
+          </div>
+          <div className="flex flex-row items-center">
+            <div className="flex items-center">
             <input
               type="checkbox"
               checked={todo.isDone} // ◀◀ 注目
